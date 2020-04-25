@@ -10,9 +10,15 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void nextMove() {
-		System.out.print("Direction to move in: ");
+		
 		Scanner in = new Scanner(System.in);
-		String direction = in.next();
+		String direction;
+		
+		do {
+			System.out.print("Direction to move in: ");
+			direction = in.next().toLowerCase();
+		} while(! (direction.equals("left") || direction.equals("right")
+				|| direction.equals("up") || direction.equals("down")));
 		
 		//this possibly closes all System.in scanners, so it could cause issues
 		in.close();
