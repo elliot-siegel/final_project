@@ -1,12 +1,23 @@
 package final_project;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.util.Random;
+import javax.swing.JFrame;
+
 public class Frame {
+	
+	private int[][] array;
+	
   public class Game2048 extends JFrame implements GameConfig {
 
-     private int[][] array;
      private Game2048Listener gl;
- // initialize frame
- public void initUI() {
+     // initialize frame
+     public void initUI() {
  		this.setTitle("2048");
  		this.setSize(500, 700);
  		this.setDefaultCloseOperation(3);
@@ -20,27 +31,13 @@ public class Frame {
  		this.setVisible(true);
          }
 
- public void paint(Graphics g) {
- 		super.paint(g);
- 		draw2048UI(g);
- 	}
+     public void paint(Graphics g) {
+ 			super.paint(g);
+ 			draw2048UI(g);
+ 		}
 
   // initialize data
-  	public void addRandomSquare() {
-  		Random rand = new Random();
-  		int r1 = rand.nextInt(array.length);
-  		int c1 = rand.nextInt(array[r1].length);
-  		int r2, c2;
-                //select a place
-  		do {
-  			r2 = rand.nextInt(array.length);
-  			c2 = rand.nextInt(array[r1].length);
-  		} while (r1 == r2 && c1 == c2);
-                //2 or 4
-  		array[r1][c1] = (rand.nextInt(2) + 1) * 2;
-  		array[r2][c2] = (rand.nextInt(2) + 1) * 2;
 
-  	}
     public void draw2048UI(Graphics g) {
 		Image img = createImage(this.getWidth(), this.getHeight());//get image?
 		Graphics ig = img.getGraphics();
@@ -104,9 +101,28 @@ public class Frame {
 		}
 	}
 }
+  public Frame() {
+	  this.addRandomSquare().addRandomSquare();
+  }
+  
+	public Frame addRandomSquare() {
+  		Random rand = new Random();
+  		int r1 = rand.nextInt(array.length);
+  		int c1 = rand.nextInt(array[r1].length);
+  		int r2, c2;
+                //select a place
+  		do {
+  			r2 = rand.nextInt(array.length);
+  			c2 = rand.nextInt(array[r1].length);
+  		} while (r1 == r2 && c1 == c2);
+                //2 or 4
+  		array[r1][c1] = (rand.nextInt(2) + 1) * 2;
+  		array[r2][c2] = (rand.nextInt(2) + 1) * 2;
+  		
+  		return this;
+
+  	}
+  
   //Or we can set the square as a pic?
 	//draw the button
 	}
-
-}
-}
