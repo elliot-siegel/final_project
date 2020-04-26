@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 
 public class Frame {
 	
-	private int[][] array;
-	
   public class Game2048 extends JFrame implements GameConfig {
 
      private Game2048Listener gl;
@@ -101,28 +99,4 @@ public class Frame {
 		}
 	}
 }
-  public Frame() {
-	  this.addRandomSquare().addRandomSquare();
-  }
-  
-	public Frame addRandomSquare() {
-  		Random rand = new Random();
-  		int r1 = rand.nextInt(array.length);
-  		int c1 = rand.nextInt(array[r1].length);
-  		int r2, c2;
-                //select a place
-  		do {
-  			r2 = rand.nextInt(array.length);
-  			c2 = rand.nextInt(array[r1].length);
-  		} while (r1 == r2 && c1 == c2);
-                //2 or 4
-  		array[r1][c1] = (rand.nextInt(2) + 1) * 2;
-  		array[r2][c2] = (rand.nextInt(2) + 1) * 2;
-  		
-  		return this;
 
-  	}
-  
-  //Or we can set the square as a pic?
-	//draw the button
-	}
