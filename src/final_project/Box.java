@@ -26,8 +26,17 @@ public class Box {
 		  }
 	  }
 	  
+	  /**
+	   * Adds a 2 or a 4 to a random, empty space on the board
+	   * @return returns itself so that multiple random squares can be added at once
+	   */
+	  
 	  public Box addRandomSquare() {
 		  	
+		  	/* 
+		  	 * Creates an ArrayList of empty spaces so that the random number generator
+		  	 * doesn't have to guess multiple times
+		  	 */
 		  	ArrayList<int[]> emptySpaces = new ArrayList<int[]>();
 		  	
 		  	for(int i = 0; i < array.length; i++) {
@@ -43,6 +52,8 @@ public class Box {
 		  		this.hasLost = true;
 		  		return this;
 		  	}
+		  	
+		  	//Pick a random, empty space
 		  
 	  		Random rand = new Random();
 	  		int randNum = rand.nextInt(emptySpaces.size());
@@ -56,6 +67,11 @@ public class Box {
 	  		return this;
 
 	  	}
+	  
+	  /**
+	   * Shifts the squares in the board left, right, up or down and combines them accordingly
+	   * @param direction The direction to move the squares in
+	   */
 	  
 	  public void moveSquares(String direction) {
 		  int axis, dir;
@@ -84,6 +100,12 @@ public class Box {
 		  
 	  }
 	  
+	  /**
+	   * Moves the squares in a specific direction so that there are no "gaps" in the board
+	   * @param dir Determines whether to start at the beginning or end of a row or column
+	   * @param axis Determines if the squares are moving along the x or y axis
+	   */
+	  
 	  public void move(int dir, int axis) {
 		  for(int a = 0; a < array.length; a++) {
 			  for(int j = 0; j < array.length; j++) {
@@ -109,6 +131,13 @@ public class Box {
 		  }
 	  }
 	  
+	  /**
+	   * Adds squares that have the same number if they are next to each other, 
+	   * according to the direction that the squares are moving
+	   * @param dir Determines whether to start at the beginning or end of a row or column
+	   * @param axis Determines if the squares are moving along the x or y axis
+	   */
+	  
 	  public void add(int dir, int axis) {
 		  for(int a = 0; a < array.length; a++) {
 			  for(int j = 0; j < array.length - 1; j++) {
@@ -131,7 +160,18 @@ public class Box {
 		  }
 	  }
 	  
-	  public int setIndex(int a, int b, int axis, int order) {
+	  /**
+	   * In the add and move methods, <code>int a</code> corresponds to the rows of <code> array </code>
+	   * and <code>int b</code> corresponds to the columns. If the board is moving up or down, this method
+	   * reverses it, so <code>a</code> corresponds to columns and <code>b</code> to rows.
+	   * @param a the first value
+	   * @param b the second value
+	   * @param axis the axis along which the squares are moving
+	   * @param order 0 or 1. Whether the value being returned should
+	   * 		correspond to a or b
+	   * @return a or b, depending on the order and the axis
+	   */
+	  private int setIndex(int a, int b, int axis, int order) {
 		  if(axis == 1) {
 			  if(order == 0) return a;
 			  else return b;
@@ -141,9 +181,19 @@ public class Box {
 		  }
 	  }
 	  
+	  /**
+	   * 
+	   * @return a new Box with the same values as this
+	   */
+	  
 	  public Box duplicate() {
 		  return new Box(this.array);
 	  }
+	  
+	  /**
+	   * 
+	   * @return The number of empty spaces in the box
+	   */
 	  
 	  public int emptySpaces() {
 		  int count = 0;
