@@ -14,7 +14,7 @@ public class SimpleComp extends ComputerPlayer {
 		
 		for(int i = 0; i < boxes.length; i++) {
 			
-			int boxScore = getBoxScore(boxes[i]);
+			int boxScore = getBoxScore(boxes, i);
 			
 			if(boxScore > bestBox) {
 				bestBox = boxes[i].emptySpaces();
@@ -26,8 +26,8 @@ public class SimpleComp extends ComputerPlayer {
 		return direction;
 	}
 	
-	public int getBoxScore(Box b) {
-		return b.emptySpaces();
+	public int getBoxScore(Box[] boxes, int i) {
+		return boxes[i].emptySpaces();
 	}
 
 }
