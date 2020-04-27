@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class HumanPlayer extends Player {
 	
+	private Scanner in = new Scanner(System.in);
+	
 	public HumanPlayer() {
 		super();
 	}
@@ -11,7 +13,6 @@ public class HumanPlayer extends Player {
 	@Override
 	public void nextMove() {
 		
-		Scanner in = new Scanner(System.in);
 		String direction;
 		
 		do {
@@ -20,8 +21,6 @@ public class HumanPlayer extends Player {
 		} while(! (direction.equals("left") || direction.equals("right")
 				|| direction.equals("up") || direction.equals("down")));
 		
-		//this possibly closes all System.in scanners, so it could cause issues
-		in.close();
 		System.out.println();
 		
 		move(direction);
