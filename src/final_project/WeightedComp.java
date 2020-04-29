@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.Map;
+
 public class WeightedComp extends SimpleComp {
 	
 	private static final int BOX_SIZE = 4;
@@ -9,10 +11,10 @@ public class WeightedComp extends SimpleComp {
 	}
 
 	@Override
-	public int getBoxScore(Box[] boxes, int i) {
+	public int getBoxScore(Map<String, Box> boxes, String dir) {
 		int sum = 0;
-		Box b = boxes[i];
-		String d = directions[i];
+		Box b = boxes.get(dir);
+		String d = dir;
 		Box comp = this.box.duplicate();
 		comp.move((d == "left" || d == "up")?1:-1, (d == "left" || d == "right")?1:-1);
 		
