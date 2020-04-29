@@ -228,4 +228,16 @@ public class Box {
 	  public int get(int r, int c) {
 		  return array[r][c];
 	  }
+	  
+	  public int[][] getArray() {
+		  int[][] newArray = new int[4][4];
+		  
+		  for(int i = 0; i < array.length; i++) {
+			  for(int j = 0; j < array[i].length; j++) {
+				  newArray[i][j] = array[i][j];
+			  }
+		  }
+		  
+		  return newArray;
+	  }
 }

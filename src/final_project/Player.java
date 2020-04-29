@@ -26,5 +26,9 @@ public abstract class Player {
 		return this.hasLost;
 	}
 	
+	public int[][] getBoxContents() {
+		return this.box.getArray();
+	}
+	
 	public abstract void nextMove();
 }
