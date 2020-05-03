@@ -1,27 +1,47 @@
 package final_project;
 
 import java.util.Random;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
+
+/**
+ * 
+ * Represents the "box" that the game is played in. The box is a 2d array
+ * of integers that this class performs actions on.
+ *
+ */
 
 public class Box {
 	
 	private int[][] array;
 	private int totalSum;
+	private Set<Integer> containsNum;
 	private boolean hasLost;
 	
+	/**
+	 * Creates the box from scratch
+	 */
 	  public Box() {
 		  totalSum = 0;
 		  hasLost = false;
 		  array = new int[4][4];
+		  containsNum = new HashSet<Integer>();
 	  }
 	  
+	  /**
+	   * Creates a new box given a pre-existing array
+	   * @param array an array of integers to be passed into the box's array
+	   */
 	  public Box(int[][] array) {
 		  this();
+		  containsNum = new HashSet<Integer>();
 		  
 		  for(int i = 0; i < array.length; i++) {
 			  for(int j = 0; j < array[i].length; j++) {
 				  this.array[i][j] = array[i][j];
 				  totalSum += array[i][j];
+				  containsNum.add(array[i][j]);
 			  }
 		  }
 	  }
@@ -63,6 +83,7 @@ public class Box {
 	                //2 or 4
 	  		array[r1][c1] = (rand.nextInt(2) + 1) * 2;
 	  		totalSum += array[r1][c1];
+	  		containsNum.add(array[r1][c1]);
 
 	  		return this;
 
@@ -152,6 +173,7 @@ public class Box {
 				  
 					  if(array[index1][index2] == array[index3][index4]) {
 						  array[index1][index2] *= 2;
+						  containsNum.add(array[index1][index2]);
 						  array[index3][index4] = 0;
 						  j++;
 					  }
@@ -207,6 +229,9 @@ public class Box {
 		  return count;
 	  }
 	  
+	  /**
+	   * @return The total sum of the squares in the box
+	   */
 	  public int sum() {
 		  return this.totalSum;
 	  }
@@ -221,14 +246,26 @@ public class Box {
 		  }
 	  }
 	  
+	  /**
+	   * @return if random squares are to be added to the box, but there are no available
+	   * spaces, then the game is lost
+	   */
 	  public boolean hasLost() {
 		  return this.hasLost;
 	  }
 	  
+	  /**
+	   * @param r row
+ 	   * @param c column
+	   * @return the value in the box of that row and column
+	   */
 	  public int get(int r, int c) {
 		  return array[r][c];
 	  }
 	  
+	  /**
+	   * @return The array representing the box
+	   */
 	  public int[][] getArray() {
 		  int[][] newArray = new int[4][4];
 		  
@@ -239,5 +276,13 @@ public class Box {
 		  }
 		  
 		  return newArray;
+	  }
+	  
+	  /**
+	   * @param n a number
+	   * @return whether or not n has been created in the game yet
+	   */
+	  public boolean containsNum(int n) {
+		  return containsNum.contains(n);
 	  }
 }

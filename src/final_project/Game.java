@@ -1,5 +1,12 @@
 package final_project;
 
+/**
+ * 
+ * This class contains the main method and runs the game. The game is our own
+ * version of the mobile game 2048.
+ *
+ */
+
 public class Game {
 
 	public static final int TESTNUM = 0;
@@ -8,13 +15,20 @@ public class Game {
 	
 	public static void main(String[] args) {
 		
+		//the user interface
 		Frame f = new Frame();
+		
+		//the user controlled player
 		Player pHuman = new HumanPlayer(f);
+		
 		f.setBoxes(pHuman.getBoxContents());
+		f.setScore(pHuman.getScore());
 		
 		while(true) {
+			
+			//Reset the values of the user controlled player and the user interface
 			if(f.startNewGame()) {
-				pHuman = new HumanPlayer(f);
+				pHuman.initialize();
 				f.setBoxes(pHuman.getBoxContents());
 				f.setNewGame(false);
 				f.setScore(pHuman.getScore());
@@ -41,6 +55,11 @@ public class Game {
 
 	}
 	
+	/**
+	 * Tests the 3 computer algorithms
+	 * @return an array of integers that represent the number of moves
+	 * each algorithm was able to make before losing, on average
+	 */
 	public static int[] testAlgorithms() {
 		int simpleAvg = testAlg(new SimpleComp());
 		int lookAvg = testAlg(new LookTwice());
@@ -49,10 +68,16 @@ public class Game {
 		return new int[] {simpleAvg, lookAvg, weightedAvg};
 	}
 	
+	/**
+	 * 
+	 * @param p a player
+	 * @return The average number of moves p was able to make before losing
+	 */
 	public static int testAlg(Player p) {
 		int avg;
 		int score = 0;
 		for(int i = 0; i < TEST_ITERATIONS; i++) {
+			p.initialize();
 			while(!p.hasLost()) {
 				p.nextMove();
 			}

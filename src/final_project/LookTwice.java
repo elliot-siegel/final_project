@@ -1,6 +1,16 @@
 package final_project;
 
+import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * 
+ * LookTwice extends the ComputerPlayer class. Its algorithm finds the best move based on the number of
+ * squares that have been combined after two moves (i.e. the number of squares combined after moving
+ * left and then right). Whichever move direction can combine the most squares upon the second move is
+ * considered the best.
+ *
+ */
 
 public class LookTwice extends ComputerPlayer {
 
@@ -12,28 +22,29 @@ public class LookTwice extends ComputerPlayer {
 	public String findBestMove() {
 		
 		Map<String, Box> m1 = super.nextMoveSet(this.box);
-		Box[] set1 = new Box[directions.length];
-		for(int i = 0; i < set1.length; i++) set1[i] = m1.get(directions[i]);
-		Box[][] boxes = new Box[4][4];
-		for(int i = 0; i < set1.length; i++) {
-			Map<String, Box> m2 =  super.nextMoveSet(set1[i]);
-			for(int j = 0; j < set1.length; j++) boxes[i][j] = m2.get(directions[j]);
+		Map<String, Map<String, Box>> boxes = new HashMap<String, Map<String, Box>>();
+		for(int i = 0; i < m1.size(); i++) {
+			Map<String, Box> m2 = super.nextMoveSet(m1.get(directions[i]));
+			boxes.put(directions[i], m2);
 		}
 		
 		String direction = "left";
 		int bestBox = 0;
 		
-		for(int i = 0; i < boxes.length; i++) {
+		for(int i = 0; i < directions.length; i++) {
 			
-			if(set1[i].emptySpaces() >= bestBox) {
-				bestBox = set1[i].emptySpaces();
-				direction = super.directions[i];
+			String dir = directions[i];
+			
+			if(m1.get(dir).emptySpaces() >= bestBox) {
+				bestBox = m1.get(dir).emptySpaces();
+				direction = dir;
 			}
 			
-			for(int j = 0; j <boxes[i].length; j++) {
-				if(boxes[i][j].emptySpaces() > bestBox) {
-					bestBox = boxes[i][j].emptySpaces();
-					direction = super.directions[i];
+			for(int j = 0; j < directions.length; j++) {
+				String dir2 = directions[j];
+				if(boxes.get(dir).get(dir2).emptySpaces() > bestBox) {
+					bestBox = boxes.get(dir).get(dir2).emptySpaces();
+					direction = dir;
 				}
 			}
 		}

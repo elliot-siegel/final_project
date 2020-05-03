@@ -15,6 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+/**
+ * 
+ * A window that runs the user interface for the game. An extension of JFrame from java.swing.JFrame
+ *
+ */
+
 public class Frame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -50,6 +56,9 @@ public class Frame extends JFrame {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Creates the left side of the user interface, which contains the representation of the Box
+	 */
 	public void createBox() {
 		boxPanel = new JPanel(new GridLayout(4, 4));
 		
@@ -63,6 +72,9 @@ public class Frame extends JFrame {
 		}
 	}
 	
+	/**
+	 * Creates the right side of the user interface, which contains the controls for the program
+	 */
 	public void createMenu() {
 		menu = new JPanel(new GridLayout(6, 1));
 		menu.setPreferredSize(new Dimension(500, 500));
@@ -98,6 +110,10 @@ public class Frame extends JFrame {
 
 	}
 	
+	/**
+	 * @param label The label to be initialized
+	 * @return The label formatted and inside a JPanel
+	 */
 	public JPanel labelCreator(JLabel label) {
 		JPanel wrapper = new JPanel();
 		wrapper.setBackground(Color.WHITE);
@@ -107,22 +123,42 @@ public class Frame extends JFrame {
 		return wrapper;
 	}
 	
+	/**
+	 * Sets the score on the screen to the specified number
+	 * @param score 
+	 */
 	public void setScore(int score) {
 		this.score.setText("Score: " + Integer.toString(score));
 	}
 	
+	/**
+	 * 
+	 * @return whether or not a new game should be started
+	 */
 	public boolean startNewGame() {
 		return newGame;
 	}
 	
+	/**
+	 * Sets the value of the variable that represents whether or not a new game should be started
+	 * @param b a boolean
+	 */
 	public void setNewGame(boolean b) {
 		newGame = b;
 	}
 	
+	/**
+	 * Sets the mode of the game. 0 = algorithm testing, 1 = user play
+	 * @param mode an integer
+	 */
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
 	
+	/**
+	 * 
+	 * @return The mode that the game is in
+	 */
 	public int getMode() {
 		return this.mode;
 	}
@@ -133,10 +169,16 @@ public class Frame extends JFrame {
 		weightedStats.setText(s3);
 	}
 	
+	/**
+	 * Sets the boxes in the user interface to show the given array of numbers
+	 * @param box a 2D array of integers
+	 */
 	public void setBoxes(int[][] box) {
 
 		for(int i = 0; i < box.length; i++) {
 			for(int j = 0; j < box[i].length; j++) {
+				
+				//Sometimes squares will be skipped over and not set to the proper value; this prevents that
 				while(box[i][j] != squares[i][j].getN()) {
 					if(box[i][j] != 0) squares[i][j].setNum(box[i][j]);
 					else squares[i][j].setNum(0);
@@ -145,6 +187,11 @@ public class Frame extends JFrame {
 		}
 	}
 	
+	/**
+	 * 
+	 * An extension of the JPanel class. Used to create the squares shown on the screen.
+	 *
+	 */
 	private class SquarePanel extends JPanel{
 
 		private static final long serialVersionUID = 1L;
@@ -168,6 +215,10 @@ public class Frame extends JFrame {
 			this.n = number;
 		}
 		
+		/**
+		 * Sets the number displayed in the SquarePanel to n. If n = 0 then no number is displayed
+		 * @param n an integer
+		 */
 		public void setNum(int n) {
 			if(n!=0) number.setText(Integer.toString(n));
 			else number.setText("");
@@ -179,6 +230,11 @@ public class Frame extends JFrame {
 			return this.n;
 		}
 		
+		/**
+		 * Sets the color of the square based on n. These colors were found online, they are similar to the colors
+		 * used in the mobile game 2048.
+		 * @param n an integer
+		 */
 		private void setSquareColor(int n) {
 			this.setBorder(this.border);
 			

@@ -3,6 +3,13 @@ package final_project;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * 
+ * The HumanPlayer class extends Player class. It makes moves on its Box
+ * by adding a keyListener to a Frame, and moving when the arrow keys are used
+ *
+ */
+
 public class HumanPlayer extends Player implements KeyListener {
 	
 	private static final int LEFT_KEY = 37;
@@ -11,6 +18,8 @@ public class HumanPlayer extends Player implements KeyListener {
 	private static final int DOWN_KEY = 40;
 	
 	private String key;
+	
+	//canGo needs to be volatile, so that key events can make changes inside a while loop
 	private volatile boolean canGo;
 	Frame f;
 	
@@ -31,6 +40,8 @@ public class HumanPlayer extends Player implements KeyListener {
 		String moveKey = null;
 		while(!canGo) {
 			moveKey = key;
+			
+			//Breaks the loop if the game mode changes or if a new game is started
 			if(f.startNewGame() || f.getMode() != Game.PLAYNUM) {
 				moveKey = "";
 				break;
